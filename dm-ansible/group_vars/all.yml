@@ -7,3 +7,6 @@ deploy_user: "{{ ansible_user }}"
 downloads_dir: "{{ playbook_dir }}/downloads"
 resources_dir: "{{ playbook_dir }}/resources"
 binary_dir:    "{{ playbook_dir }}/resources/bin"
+
+# Random shifts for retrying failed ops like downloading
+retry_stagger: 5
