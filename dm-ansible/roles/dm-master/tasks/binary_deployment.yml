@@ -1,6 +1,6 @@
 ---
 
-- name: create deploy directories
+- name: create dm-master deploy directories
   file:
     path: '{{ item }}'
     state: directory
@@ -9,13 +9,12 @@
     group: '{{ deploy_user }}'
   become: true
   with_items:
-    - "{{ dm_worker_log_dir }}"
-    - "{{ dm_worker_relay_dir }}"
+    - "{{ dm_master_log_dir }}"
 
-- name: deploy dm-worker binary
-  copy: src="{{ resources_dir }}/bin/dm-worker" dest="{{ deploy_dir }}/bin/" mode=0755
+- name: deploy dm-master binary
+  copy: src="{{ resources_dir }}/bin/dm-master" dest="{{ deploy_dir }}/bin/" mode=0755
 
-- name: create dm-worker run script
+- name: create dm-master run script
   template:
     src: "run_{{ role_name }}.sh.j2"
     dest: "{{ deploy_dir }}/scripts/run_{{ role_name }}.sh"
