@@ -18,7 +18,7 @@
 - name: create run script
   template:
     src: "run_{{ role_name }}.sh.j2"
-    dest: "{{ deploy_dir }}/scripts/{{ item }}_{{ role_name }}.sh"
+    dest: "{{ deploy_dir }}/scripts/run_{{ role_name }}.sh"
     mode: "0755"
     backup: yes
 
