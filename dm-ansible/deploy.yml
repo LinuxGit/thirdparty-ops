@@ -16,3 +16,10 @@
     - dm-worker
   roles:
     - dm-worker
+
+- name: deploying dm-master
+  hosts: dm-master_servers
+  tags:
+    - dm-master
+  roles:
+    - dm-master
