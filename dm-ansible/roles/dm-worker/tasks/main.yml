@@ -3,7 +3,7 @@
 - include_tasks: binary_deployment.yml
 
 - name: create configuration file
-  template: src=dm-worker.toml.j2 dest={{ playbook_dir }}/conf/dm-worker.toml mode=0644 backup=yes
+  template: src=dm-worker.toml.j2 dest={{ deploy_dir }}/conf/dm-worker.toml mode=0644 backup=yes
   register: dm_worker_conf_st
 
 - name: backup conf file
