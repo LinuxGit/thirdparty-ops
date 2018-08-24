@@ -4,10 +4,10 @@
 
 - name: create configuration file
   template: src=dm-worker.toml.j2 dest={{ playbook_dir }}/conf/dm-worker.toml mode=0644 backup=yes
-  register: dm-worker_conf_st
+  register: dm_worker_conf_st
 
 - name: backup conf file
   command: mv "{{ dm-worker_conf_st.backup_file }}" "{{ backup_dir }}"
   when:
-    - dm-worker_conf_st.changed
-    - dm-worker_conf_st.backup_file is defined
+    - dm_worker_conf_st.changed
+    - dm_worker_conf_st.backup_file is defined
