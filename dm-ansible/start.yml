@@ -1,0 +1,35 @@
+---
+
+# The Playbook of DM
+
+- name: check config locally
+  hosts: localhost
+  any_errors_fatal: true
+  tags:
+    - always
+  roles:
+    - check_config_static
+
+- hosts: dm_worker_servers
+  tags:
+    - dm-worker
+  tasks:
+    - name: start dm-worker by systemd
+      become: true
+      systemd: name=dm-worker-{{ dm_worker_port }}.service state=started enabled=no
+
+    - name: wait for dm-worker up
+      wait_for: |
+        host={{ ansible_host }} port={{ dm_worker_port }} state=present
+
+- hosts: dm_master_servers
+  tags:
+    - dm-master
+  tasks:
+    - name: start dm-master by systemd
+      become: true
+      systemd: name=dm-master-{{ dm_master_port }}.service state=started enabled=no
+
+    - name: wait for dm-master up
+      wait_for: |
+        host={{ ansible_host }} port={{ dm_master_port }} state=present

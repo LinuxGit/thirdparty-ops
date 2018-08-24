@@ -1,6 +1,6 @@
 ---
 
-# The Playbook of dm
+# The Playbook of DM
 
 - name: check config locally
   hosts: localhost
@@ -12,6 +12,7 @@
 
 - name: deploying dm-worker
   hosts: dm_worker_servers
+  any_errors_fatal: true
   tags:
     - dm-worker
   roles:
@@ -19,7 +20,15 @@
 
 - name: deploying dm-master
   hosts: dm_master_servers
+  any_errors_fatal: true
   tags:
     - dm-master
   roles:
     - dm-master
+
+- name: deploying dmctl
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - dmctl
