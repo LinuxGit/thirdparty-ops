@@ -10,6 +10,13 @@
   roles:
     - check_config_static
 
+- name: initializing system config
+  hosts: all
+  gather_facts: false
+  become: true
+  roles:
+    - bootstrap
+
 - name: deploying dm-worker
   hosts: dm_worker_servers
   any_errors_fatal: true
