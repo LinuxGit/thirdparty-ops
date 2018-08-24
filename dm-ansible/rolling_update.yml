@@ -65,7 +65,7 @@
 
     - name: wait for dm-master up
       wait_for: |
-        host={{ ansible_host }} port={{ dm_master_port }} state=stopped
+        host={{ ansible_host }} port={{ dm_master_port }} state=present
 
 
 - name: deploying dmctl
