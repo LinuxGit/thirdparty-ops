@@ -36,7 +36,7 @@
 
     - name: wait for dm-worker up
       wait_for: |
-        host={{ ansible_host }} port={{ dm_worker_port }} state=present
+        host={{ ansible_host }} port={{ dm_worker_port }} state=started
 
 
 - name: rolling update dm-master
@@ -65,7 +65,7 @@
 
     - name: wait for dm-master up
       wait_for: |
-        host={{ ansible_host }} port={{ dm_master_port }} state=present
+        host={{ ansible_host }} port={{ dm_master_port }} state=started
 
 
 - name: deploying dmctl

@@ -20,7 +20,7 @@
 
     - name: wait for dm-worker up
       wait_for: |
-        host={{ ansible_host }} port={{ dm_worker_port }} state=present
+        host={{ ansible_host }} port={{ dm_worker_port }} state=started
 
 - hosts: dm_master_servers
   tags:
@@ -32,4 +32,4 @@
 
     - name: wait for dm-master up
       wait_for: |
-        host={{ ansible_host }} port={{ dm_master_port }} state=present
+        host={{ ansible_host }} port={{ dm_master_port }} state=started
