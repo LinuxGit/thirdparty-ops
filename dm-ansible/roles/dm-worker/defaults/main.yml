@@ -1,0 +1,9 @@
+---
+
+# default configuration for dm-worker
+
+dm-worker_log_level: "info"
+dm-worker_log_dir: "{{ deploy_dir }}/log"
+dm-worker_log_file: "dm-worker.log"
+dm-worker_log_rotate: "day"
+dm-worker_relay_dir: "{{ deploy_dir }}/relay_log"
