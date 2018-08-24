@@ -11,14 +11,14 @@
     - check_config_static
 
 - name: deploying dm-worker
-  hosts: dm-worker_servers
+  hosts: dm_worker_servers
   tags:
     - dm-worker
   roles:
     - dm-worker
 
 - name: deploying dm-master
-  hosts: dm-master_servers
+  hosts: dm_master_servers
   tags:
     - dm-master
   roles:
