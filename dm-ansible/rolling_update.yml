@@ -24,7 +24,7 @@
 
     - name: wait for dm-worker down
       wait_for: |
-        host={{ ansible_host }} port={{ dm_worker_port }} state=present
+        host={{ ansible_host }} port={{ dm_worker_port }} state=stopped
 
   roles:
     - dm-worker
@@ -53,7 +53,7 @@
 
     - name: wait for dm-master down
       wait_for: |
-        host={{ ansible_host }} port={{ dm_master_port }} state=present
+        host={{ ansible_host }} port={{ dm_master_port }} state=stopped
 
   roles:
     - dm-master
@@ -65,7 +65,7 @@
 
     - name: wait for dm-master up
       wait_for: |
-        host={{ ansible_host }} port={{ dm_master_port }} state=present
+        host={{ ansible_host }} port={{ dm_master_port }} state=stopped
 
 
 - name: deploying dmctl
