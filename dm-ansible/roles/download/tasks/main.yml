@@ -45,7 +45,7 @@
   with_items: "{{ dm_packages }}"
   when: has_outbound_network
 
-- name: download monitor modules binary
+- name: download monitoring modules binary
   get_url:
     url: "{{ item.url }}"
     dest: "{{ downloads_dir }}/{{ item.name }}-{{ item.version }}.tar.gz"
@@ -56,7 +56,7 @@
   until: "'OK' in get_url_result.msg or 'file already exists' in get_url_result.msg"
   retries: 4
   delay: "{{ retry_stagger | random + 3 }}"
-  with_items: "{{ monitor_packages }}"
+  with_items: "{{ monitoring_packages }}"
   when: has_outbound_network
 
 - name: unarchive dm binary
@@ -66,19 +66,19 @@
     warn: no
   with_items: "{{ dm_packages }}"
 
-- name: unarchive monitor modules binary
+- name: unarchive monitoring modules binary
   shell: ls -1 {{ item.name }}-{{ item.version }}.tar.gz | xargs -n1 tar xzf
   args:
     chdir: "{{ downloads_dir }}"
     warn: no
-  with_items: "{{ monitor_packages }}"
+  with_items: "{{ monitoring_packages }}"
 
 - name: cp dm binary
   shell: >
     cp -v {{ downloads_dir }}/{{ item.name }}-{{ item.version}}*/bin/* "{{ resources_dir }}/bin/"
   with_items: "{{ dm_packages }}"
 
-- name: cp monitor modules binary
+- name: cp monitoring modules binary
   shell: >
     cp -v {{ downloads_dir }}/{{ item }}-*/{{ item }} "{{ resources_dir }}/bin/{{ item }}"
   with_items:
