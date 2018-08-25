@@ -23,6 +23,28 @@
     - name: wait for prometheus down
       wait_for: host={{ ansible_host }} port={{ prometheus_port }} state=stopped
 
+# - hosts: grafana_servers
+#   tags:
+#     - grafana
+#   tasks:
+#     - name: stop grafana by systemd
+#       systemd: name=grafana-{{ grafana_port }}.service state=stopped
+#       become: true
+#
+#     - name: wait for grafana down
+#       wait_for: host={{ ansible_host }} port={{ grafana_port }} state=stopped
+
+- hosts: alertmanager_servers
+  tags:
+    - alertmanager
+  tasks:
+    - name: stop alertmanager by systemd
+      systemd: name=alertmanager-{{ alertmanager_port }}.service state=stopped
+      become: true
+
+    - name: wait for alertmanager down
+      wait_for: host={{ ansible_host }} port={{ alertmanager_port }} state=stopped
+
 - hosts: dm_worker_servers
   tags:
     - dm-worker
