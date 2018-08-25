@@ -14,13 +14,13 @@
   tags:
     - prometheus
   tasks:
-    - name: stop prometheus by systemd
+    - name: start prometheus by systemd
       systemd: name={{ item }} state=started
       become: true
       with_items:
         - prometheus-{{ prometheus_port }}.service
 
-    - name: wait for prometheus down
+    - name: wait for prometheus up
       wait_for: host={{ ansible_host }} port={{ prometheus_port }} state=started
 
 - hosts: dm_worker_servers
