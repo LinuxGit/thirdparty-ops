@@ -17,6 +17,27 @@
   roles:
     - bootstrap
 
+- name: deploying prometheus
+  hosts: prometheus_servers
+  tags:
+    - prometheus
+  roles:
+    - prometheus
+
+# - name: deploying grafana
+#   hosts: grafana_servers
+#   tags:
+#     - grafana
+#   roles:
+#     - grafana
+#
+# - name: deploying alertmanager
+#   hosts: alertmanager_servers
+#   tags:
+#     - alertmanager
+#   roles:
+#     - alertmanager
+
 - name: deploying dm-worker
   hosts: dm_worker_servers
   any_errors_fatal: true

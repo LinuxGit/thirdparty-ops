@@ -10,6 +10,19 @@
   roles:
     - check_config_static
 
+- hosts: prometheus_servers
+  tags:
+    - prometheus
+  tasks:
+    - name: stop prometheus by systemd
+      systemd: name={{ item }} state=stopped
+      become: true
+      with_items:
+        - prometheus-{{ prometheus_port }}.service
+
+    - name: wait for prometheus down
+      wait_for: host={{ ansible_host }} port={{ prometheus_port }} state=stopped
+
 - hosts: dm_worker_servers
   tags:
     - dm-worker
