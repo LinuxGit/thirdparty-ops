@@ -23,16 +23,23 @@
     - name: wait for prometheus up
       wait_for: host={{ ansible_host }} port={{ prometheus_port }} state=started
 
-# - hosts: grafana_servers
-#   tags:
-#     - grafana
-#   tasks:
-#     - name: start grafana by systemd
-#       systemd: name=grafana-{{ grafana_port }}.service state=started
-#       become: true
-#
-#     - name: wait for grafana up
-#       wait_for: host={{ ansible_host }} port={{ grafana_port }} state=started
+- hosts: grafana_servers
+  tags:
+    - grafana
+  tasks:
+    - name: start grafana by systemd
+      systemd: name=grafana-{{ grafana_port }}.service state=started
+      become: true
+
+    - name: wait for grafana up
+      wait_for: host={{ ansible_host }} port={{ grafana_port }} state=started
+
+    - name: import grafana data source
+      shell: >
+        chdir={{ grafana_data_dir }}
+        warn=no
+        curl -q -X POST -d @data_source.json --header 'Content-Type: application/json'
+        "http://{{ grafana_admin_user }}:{{ grafana_admin_password }}@127.0.0.1:{{ grafana_port }}/api/datasources"
 
 - hosts: alertmanager_servers
   tags:

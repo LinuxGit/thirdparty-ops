@@ -24,12 +24,12 @@
   roles:
     - prometheus
 
-# - name: deploying grafana
-#   hosts: grafana_servers
-#   tags:
-#     - grafana
-#   roles:
-#     - grafana
+- name: deploying grafana
+  hosts: grafana_servers
+  tags:
+    - grafana
+  roles:
+    - grafana
 
 - name: deploying alertmanager
   hosts: alertmanager_servers
