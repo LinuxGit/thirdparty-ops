@@ -1,7 +1,7 @@
 ---
 global:
   scrape_interval:     15s # By default, scrape targets every 15 seconds.
-  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 15s # How frequently to evaluate rules.
   # scrape_timeout is set to the global default (10s).
   external_labels:
     cluster: '{{ cluster_name }}'
@@ -16,13 +16,7 @@ rule_files:
     if groups.get('alertmanager_servers', []) else '' -%}
 {% set alertmanager_port = hostvars[groups.alertmanager_servers[0]].alertmanager_port if alertmanager_host else '' -%}
 
-{% if alertmanager_target|default("") %}
-alerting:
- alertmanagers:
- - static_configs:
-   - targets:
-     - '{{ alertmanager_target }}'
-{% elif alertmanager_host %}
+{% if alertmanager_host %}
 alerting:
  alertmanagers:
  - static_configs:
