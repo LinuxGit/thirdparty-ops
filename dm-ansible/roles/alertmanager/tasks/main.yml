@@ -1,6 +1,6 @@
 ---
 
-- include_tasks: "{{ deployment_method }}_deployment.yml"
+- include_tasks: "binary_deployment.yml"
 
 - name: create configuration file
   copy: src="{{ playbook_dir }}/conf/alertmanager.yml" dest="{{ deploy_dir }}/conf/alertmanager.yml" mode=0644 backup=yes
@@ -9,7 +9,3 @@
 - name: backup conf file
   command: mv "{{ alertmanager_conf_st.backup_file }}" "{{ backup_dir }}"
   when: alertmanager_conf_st.changed and alertmanager_conf_st.backup_file is defined
-
-- name: prepare firewalld white list
-  set_fact:
-    firewalld_ports: "{{ [alertmanager_port ~ '/tcp'] + firewalld_ports }}"

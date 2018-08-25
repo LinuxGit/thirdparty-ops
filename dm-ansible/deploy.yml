@@ -30,13 +30,13 @@
 #     - grafana
 #   roles:
 #     - grafana
-#
-# - name: deploying alertmanager
-#   hosts: alertmanager_servers
-#   tags:
-#     - alertmanager
-#   roles:
-#     - alertmanager
+
+- name: deploying alertmanager
+  hosts: alertmanager_servers
+  tags:
+    - alertmanager
+  roles:
+    - alertmanager
 
 - name: deploying dm-worker
   hosts: dm_worker_servers
