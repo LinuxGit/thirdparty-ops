@@ -1,6 +1,6 @@
 ---
 
-- name: deploy systemd
+- name: create prometheus systemd service
   include_role:
     name: systemd
   vars:
