@@ -5,19 +5,6 @@
     that:
       - ansible_version.full is version('2.5.0', '>=')
 
-- name: create downloads and resources directories
-  file: path="{{ item }}" state=directory mode=0755
-  with_items:
-  - "{{ downloads_dir }}"
-  - "{{ resources_dir }}"
-  - "{{ resources_dir }}/bin"
-
-- name: create packages.yml
-  template: src=packages.yml.j2 dest={{ playbook_dir }}/conf/packages.yml
-
-- include_vars: file={{ playbook_dir }}/conf/packages.yml
-
-# preflight checks
 - name: detect outbound network
   shell: >
     warn=no
@@ -32,7 +19,18 @@
     msg: "The Control Machine must have access to the Internet in order to download TiDB and related packages."
   when: not has_outbound_network
 
-# do actual downloading
+- name: create downloads and resources directories
+  file: path="{{ item }}" state=directory mode=0755
+  with_items:
+  - "{{ downloads_dir }}"
+  - "{{ resources_dir }}"
+  - "{{ resources_dir }}/bin"
+
+- name: create packages.yml
+  template: src=packages.yml.j2 dest={{ playbook_dir }}/conf/packages.yml
+
+- include_vars: file={{ playbook_dir }}/conf/packages.yml
+
 - name: download DM binary
   get_url:
     url: "{{ item.url }}"
@@ -73,14 +71,14 @@
   args:
     chdir: "{{ downloads_dir }}"
     warn: no
-  with_items: "{{ third_party_packages }}"
+  with_items: "{{ monitor_packages }}"
 
 - name: cp dm binary
   shell: >
     cp -v {{ downloads_dir }}/{{ item.name }}-{{ item.version}}*/bin/* "{{ resources_dir }}/bin/"
   with_items: "{{ dm_packages }}"
 
-- name: cp monitoring binary
+- name: cp monitor modules binary
   shell: >
     cp -v {{ downloads_dir }}/{{ item }}-*/{{ item }} "{{ resources_dir }}/bin/{{ item }}"
   with_items:
