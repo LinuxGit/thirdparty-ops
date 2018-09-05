@@ -19,7 +19,7 @@ Ansible 是一款自动化运维工具，DM-Ansible 是 PingCAP 基于 Ansible P
 
     - 推荐安装 CentOS 7.3 及以上版本 Linux 操作系统，x86_64 架构 (amd64)。
     - 机器之间内网互通。
-    - 关闭防火墙或开放服务端口。
+    - 关闭防火墙或开放[服务端口](#服务默认端口)。
 
 2.  部署中控机一台:
 
@@ -252,13 +252,7 @@ $ ansible-playbook stop.yml
 
 ## 常见部署问题
 
-### 如何自定义端口
-
-修改 `inventory.ini` 文件，在相应服务 IP 后添加对应服务端口相关主机变量即可：
-
-```
-dm-master ansible_host=172.16.10.71 dm_master_port=12080 dm_master_status_port=12081
-```
+### 服务默认端口
 
 | 组件 | 端口变量 | 默认端口 | 说明 |
 | :-- | :-- | :-- | :-- |
@@ -269,3 +263,11 @@ dm-master ansible_host=172.16.10.71 dm_master_port=12080 dm_master_status_port=1
 | Prometheus | prometheus_port | 9090 | Prometheus 服务通信端口 |
 | Grafana | grafana_port |  3000 | Web 监控服务对外服务和客户端(浏览器)访问端口 |
 | Alertmanager | alertmanager_port |  9093 | Alertmanager 服务通信端口 |
+
+### 如何自定义端口
+
+修改 `inventory.ini` 文件，在相应服务 IP 后添加对应服务端口相关主机变量即可：
+
+```
+dm-master ansible_host=172.16.10.71 dm_master_port=12080 dm_master_status_port=12081
+```
