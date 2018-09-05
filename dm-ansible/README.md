@@ -2,11 +2,11 @@
 
 ## 概述
 
-Ansible 是一款自动化运维工具，DM-Ansible 是 PingCAP 基于 Ansible playbook 功能编写的集群部署工具。使用 TiDB-Ansible 可以快速部署一个完整的 DM 集群。
+Ansible 是一款自动化运维工具，DM-Ansible 是 PingCAP 基于 Ansible Playbook 功能编写的集群部署工具。使用 TiDB-Ansible 可以快速部署一个完整的 DM 集群。
 
 本部署工具可以通过配置文件设置集群拓扑，完成以下各项运维工作：
 
-- 初始化操作系统参数
+- 初始化部署机器操作系统参数
 - 部署 DM 集群组件（包括 dm-master、dm-worker、dmctl）
 - 部署监控组件（包括 prometheus、grafana、alertmanager）
 - 启动集群
@@ -19,6 +19,7 @@ Ansible 是一款自动化运维工具，DM-Ansible 是 PingCAP 基于 Ansible p
 
     - 推荐安装 CentOS 7.3 及以上版本 Linux 操作系统，x86_64 架构 (amd64)。
     - 机器之间内网互通。
+    - 关闭防火墙或开放服务端口。
 
 2.  部署中控机一台:
 
@@ -59,7 +60,9 @@ Ansible 是一款自动化运维工具，DM-Ansible 是 PingCAP 基于 Ansible p
 # passwd tidb
 ```
 
-生成 ssh key: 执行 `su` 命令从 `root` 用户切换到 `tidb` 用户下，创建 `tidb` 用户 ssh key， 提示 `Enter passphrase` 时直接回车即可。执行成功后，ssh 私钥文件为 `/home/tidb/.ssh/id_rsa`， ssh 公钥文件为 `/home/tidb/.ssh/id_rsa.pub`。
+生成 ssh key：执行 `su` 命令从 `root` 用户切换到 `tidb` 用户下，创建 `tidb` 用户 ssh key， 提示 `Enter passphrase` 时直接回车即可。
+
+执行成功后，ssh 私钥文件为 `/home/tidb/.ssh/id_rsa`， ssh 公钥文件为 `/home/tidb/.ssh/id_rsa.pub`。
 
 ```
 # su - tidb
