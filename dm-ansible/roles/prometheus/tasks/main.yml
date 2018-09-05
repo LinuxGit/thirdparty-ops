@@ -26,4 +26,29 @@
     - prometheus_conf_st.changed
     - prometheus_conf_st.backup_file is defined
 
+- name: deploy alert rules file
+  copy:
+    src: "{{ playbook_dir }}/conf/{{ item }}"
+    dest: "{{ deploy_dir }}/conf/{{ item }}"
+    mode: 0644
+    backup: yes
+  with_items:
+    - dm_worker.rules.yml
+  register: alert_rules_st
+
+- name: backup alert rules file
+  command: mv "{{ item.backup_file }}" "{{ backup_dir }}"
+  when:
+    - item.changed
+    - item.backup_file is defined
+  with_items: "{{ alert_rules_st.results }}"
+
+- name: set alert rules label
+  replace:
+    dest: "{{ deploy_dir }}/conf/{{ item }}"
+    regexp: "ENV_LABELS_ENV"
+    replace: "{{ cluster_name }}"
+  with_items:
+    - dm_worker.rules.yml
+
 - include_tasks: "binary_deployment.yml"

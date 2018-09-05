@@ -11,6 +11,7 @@ global:
 
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
 rule_files:
+  - 'dm_worker.rules.yml'
 
 {% set alertmanager_host = hostvars[groups.alertmanager_servers[0]].ansible_host | default(hostvars[groups.alertmanager_servers[0]].inventory_hostname)
     if groups.get('alertmanager_servers', []) else '' -%}
