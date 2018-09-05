@@ -31,3 +31,18 @@ alerting:
 {% endif %}
 
 scrape_configs:
+
+{% set dm_worker_status_addrs = [] -%}
+{% for host in groups.dm_worker_servers -%}
+  {% set dm_worker_ip = hostvars[host].ansible_host | default(hostvars[host].inventory_hostname) -%}
+  {% set dm_worker_status_port = hostvars[host].dm_worker_status_port -%}
+  {% set _ = dm_worker_status_addrs.append("%s:%s" % (dm_worker_ip, dm_worker_status_port)) -%}
+{% endfor -%}
+
+  - job_name: "dm_worker"
+    honor_labels: true # don't overwrite job & instance labels
+    static_configs:
+    - targets:
+{% for dm_worker_status_addr in dm_worker_status_addrs %}
+      - '{{ dm_worker_status_addr }}'
+{% endfor %}
