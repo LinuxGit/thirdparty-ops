@@ -185,8 +185,6 @@ dm-master ansible_host=172.16.10.71 deploy_dir=/data1/deploy
 
 #### 其他变量调整
 
-> **注：** 以下控制变量开启请使用首字母大写 `True`，关闭请使用首字母大写 `False`。
-
 | 变量            | 含义                                                        |
 | --------------- | ---------------------------------------------------------- |
 | cluster_name | 集群名称，可调整 |
@@ -236,7 +234,7 @@ dm-master ansible_host=172.16.10.71 deploy_dir=/data1/deploy
 
 ### 启动集群
 
-此操作会按顺序启动整个 DM 集群所有组件（包括 包括 dm-master、dm-worker、dmctl 和监控组件）。
+此操作会按顺序启动整个 DM 集群所有组件（包括 dm-master、dm-worker、dmctl 和监控组件）。
 
 ```
 $ ansible-playbook start.yml
@@ -244,7 +242,7 @@ $ ansible-playbook start.yml
 
 ### 关闭集群
 
-此操作会按顺序关闭整个 DM 集群所有组件（包括 包括 dm-master、dm-worker、dmctl 和监控组件）。
+此操作会按顺序关闭整个 DM 集群所有组件（包括 dm-master、dm-worker、dmctl 和监控组件）。
 
 ```
 $ ansible-playbook stop.yml
