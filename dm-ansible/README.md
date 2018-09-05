@@ -135,16 +135,6 @@ $ ansible-playbook -i hosts.ini create_users.yml -u root -k
 > **注：** 请使用内网 IP 来部署集群，如果部署目标机器 SSH 端口非默认 22 端口，需添加 `ansible_port` 变量，如：
 > `dm-worker1 ansible_host=172.16.10.72 ansible_port=5555`
 
-标准 TiDB 集群需要 6 台机器:
-
-- 2 个 TiDB 节点
-- 3 个 PD 节点
-- 3 个 TiKV 节点，第一台 TiDB 机器同时用作监控机
-
-默认情况下，单台机器上只需部署一个 TiKV 实例。如果你的 TiKV 部署机器 CPU 及内存配置是[部署建议](recommendation.md)的两倍或以上，并且拥有两块 SSD 硬盘或单块容量超 2T 的 SSD 硬盘，可以考虑部署两实例，但不建议部署两个以上实例。
-
-### 单机单 TiKV 实例集群拓扑
-
 | Name | Host IP | Services |
 | ---- | ------- | -------- |
 | node1 | 172.16.10.71 | dm-master, prometheus, grafana, alertmanager |
