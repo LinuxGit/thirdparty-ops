@@ -235,6 +235,24 @@ dm-master ansible_host=172.16.10.71 deploy_dir=/data1/deploy
     ansible-playbook start.yml
     ```
 
+## 常见运维操作
+
+### 启动集群
+
+此操作会按顺序启动整个 DM 集群所有组件（包括 包括 dm-master、dm-worker、dmctl 和监控组件）。
+
+```
+$ ansible-playbook start.yml
+```
+
+### 关闭集群
+
+此操作会按顺序关闭整个 TiDB 集群所有组件（（包括 包括 dm-master、dm-worker、dmctl 和监控组件）。
+
+```
+$ ansible-playbook stop.yml
+```
+
 ## 常见部署问题
 
 ### 如何自定义端口
