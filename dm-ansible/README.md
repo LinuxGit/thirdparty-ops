@@ -217,19 +217,13 @@ dm-master ansible_host=172.16.10.71 deploy_dir=/data1/deploy
     ansible-playbook local_prepare.yml
     ```
 
-3.  初始化系统环境，修改内核参数
-
-    ```
-    ansible-playbook bootstrap.yml
-    ```
-
-4.  修改内核参数，并部署 DM 集群组件及监控组件
+3.  修改内核参数，并部署 DM 集群组件及监控组件
 
     ```
     ansible-playbook deploy.yml
     ```
 
-5.  启动 DM 集群
+4.  启动 DM 集群
 
     ```
     ansible-playbook start.yml
@@ -247,7 +241,7 @@ $ ansible-playbook start.yml
 
 ### 关闭集群
 
-此操作会按顺序关闭整个 TiDB 集群所有组件（（包括 包括 dm-master、dm-worker、dmctl 和监控组件）。
+此操作会按顺序关闭整个 DM 集群所有组件（包括 包括 dm-master、dm-worker、dmctl 和监控组件）。
 
 ```
 $ ansible-playbook stop.yml
@@ -257,7 +251,7 @@ $ ansible-playbook stop.yml
 
 ### 如何自定义端口
 
-修改 `inventory.ini` 文件，在相应服务 IP 后添加以下主机变量即可：
+修改 `inventory.ini` 文件，在相应服务 IP 后添加对应服务端口相关主机变量即可：
 
 ```
 dm-master ansible_host=172.16.10.71 dm_master_port=12080 dm_master_status_port=12081
