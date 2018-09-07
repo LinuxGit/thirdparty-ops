@@ -163,9 +163,9 @@ ansible-playbook local_prepare.yml
 dm-master ansible_host=172.16.10.71
 
 [dm_worker_servers]
-dm-worker1 ansible_host=172.16.10.72 server_id=101 mysql_host=172.16.10.72 mysql_user=root mysql_password='KYMz623KG+6uspkXMJrU+0BYknT8xVU=' mysql_port=3306
+dm-worker1 ansible_host=172.16.10.72 server_id=101 mysql_host=172.16.10.72 mysql_user=root mysql_password='VjX8cEeTX+qcvZ3bPaO4h0C80pe/1aU=' mysql_port=3306
 
-dm-worker2 ansible_host=172.16.10.73 server_id=102 mysql_host=172.16.10.73 mysql_user=root mysql_password='KYMz623KG+6uspkXMJrU+0BYknT8xVU=' mysql_port=3306
+dm-worker2 ansible_host=172.16.10.73 server_id=102 mysql_host=172.16.10.73 mysql_user=root mysql_password='VjX8cEeTX+qcvZ3bPaO4h0C80pe/1aU=' mysql_port=3306
 
 ## Monitoring modules
 [prometheus_servers]
@@ -225,10 +225,20 @@ dm-master ansible_host=172.16.10.71 deploy_dir=/data1/deploy
 | server_id | dm-worker 伪装成一个 mysql slave，即 slave 的 server_id, 需要在 mysql 集群中全局唯一，取值范围 0 - 4294967295 |
 | mysql_host | 上游 MySQL host | 
 | mysql_user | 上游 MySQL 用户名，默认为 root |
-| mysql_password | 上游 MySQL 用户名密码 |
+| mysql_password | 上游 MySQL 用户名密码，密码需使用 dmctl 工具加密，参考[dmctl 加密上游 MySQL 密码](#dmctl-加密上游-MySQL-密码) |
 | mysql_port | 上游 MySQL 端口号, 默认为 3306 |
 | enable_gtid | dm-worker 是否要用 gtid 形式的位置去拉取 binlog，前提是上游 mysql 已经开启 gtid 模式 |
 | flavor | flavor 表示 mysql 的发行版类型，官方版以及 percona、云 mysql 填写 mysql，mariadb 则填写 mariadb，默认为 mysql |
+
+#### dmctl 加密上游 MySQL 用户密码
+
+以上游 MySQL 用户密码为 `123456` 为例，将生成的字符串配置到 dm-worker 的 `mysql_password` 变量中。
+
+```
+$ cd /home/tidb/dm-ansible/dmctl
+$ ./dmctl -encrypt 123456
+VjX8cEeTX+qcvZ3bPaO4h0C80pe/1aU=
+```
 
 ## 部署任务
 
