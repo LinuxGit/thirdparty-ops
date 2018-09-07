@@ -134,6 +134,30 @@ username = tidb
 $ ansible-playbook -i hosts.ini create_users.yml -u root -k
 ```
 
+确认 `dm-ansible/inventory.ini` 文件中 `ansible_user = tidb`，本例使用 `tidb` 用户作为服务运行用户，配置如下：
+
+> `ansible_user` 不要设置成 `root` 用户，`dm-ansbile` 限制了服务以普通用户运行。
+
+执行以下命令如果所有 server 返回 `tidb` 表示 ssh 互信配置成功。
+
+```
+ansible -i inventory.ini all -m shell -a 'whoami'
+```
+
+执行以下命令如果所有 server 返回 `root` 表示 `tidb` 用户 sudo 免密码配置成功。
+
+```
+ansible -i inventory.ini all -m shell -a 'whoami' -b
+```
+
+## 联网下载 DM 及监控组件安装包到中控机
+
+执行 `local_prepare.yml` playbook，联网下载 DM 及监控组件安装包到中控机：
+
+    ```
+    ansible-playbook local_prepare.yml
+    ```
+
 ## 分配机器资源，编辑 inventory.ini 文件
 
 以 `tidb` 用户登录中控机，`inventory.ini` 文件路径为 `/home/tidb/dm-ansible/inventory.ini`。
@@ -197,37 +221,15 @@ dm-master ansible_host=172.16.10.71 deploy_dir=/data1/deploy
 
 ## 部署任务
 
-> ansible-playbook 执行 Playbook 时默认并发为 5，部署目标机器较多时可添加 -f 参数指定并发，如 `ansible-playbook deploy.yml -f 10`
+> ansible-playbook 执行 Playbook 时默认并发为 5，部署目标机器较多时可添加 -f 参数指定并发，如 `ansible-playbook deploy.yml -f 10` 
 
-1.  确认 `dm-ansible/inventory.ini` 文件中 `ansible_user = tidb`，本例使用 `tidb` 用户作为服务运行用户，配置如下：
-
-    > `ansible_user` 不要设置成 `root` 用户，`dm-ansbile` 限制了服务以普通用户运行。
-
-    执行以下命令如果所有 server 返回 `tidb` 表示 ssh 互信配置成功。
-
-    ```
-    ansible -i inventory.ini all -m shell -a 'whoami'
-    ```
-
-    执行以下命令如果所有 server 返回 `root` 表示 `tidb` 用户 sudo 免密码配置成功。
-
-    ```
-    ansible -i inventory.ini all -m shell -a 'whoami' -b
-    ```
-
-2.  执行 `local_prepare.yml` playbook，联网下载 DM 及监控组件安装包到中控机：
-
-    ```
-    ansible-playbook local_prepare.yml
-    ```
-
-3.  修改内核参数，并部署 DM 集群组件及监控组件
+1.  修改内核参数，并部署 DM 集群组件及监控组件
 
     ```
     ansible-playbook deploy.yml
     ```
 
-4.  启动 DM 集群
+2.  启动 DM 集群
 
     ```
     ansible-playbook start.yml
