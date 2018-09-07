@@ -155,6 +155,16 @@ ansible-playbook local_prepare.yml
 | node2 | 172.16.10.72 | dm-worker1 |
 | node3 | 172.16.10.73 | dm-worker2 |
 
+| dm-worker 变量 | 变量含义 |
+| ---- | ------- |
+| server_id | dm-worker 伪装成一个 mysql slave，即 slave 的 server_id, 需要在 mysql 集群中全局唯一，取值范围 0 - 4294967295 |
+| mysql_host | 上游 MySQL host | 
+| mysql_user | 上游 MySQL 用户名，默认为 root |
+| mysql_password | 上游 MySQL 用户名密码 |
+| mysql_port | 上游 MySQL 端口号, 默认为 3306 |
+| enable_gtid | |
+| flavor | 默认为 mysql, 可选 |
+
 ```ini
 ## DM modules
 [dm_master_servers]
