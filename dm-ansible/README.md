@@ -157,18 +157,6 @@ ansible-playbook local_prepare.yml
 | node2 | 172.16.10.72 | dm-worker1 |
 | node3 | 172.16.10.73 | dm-worker2 |
 
-### dm-worker 配置参数
-
-| 变量 | 变量含义 |
-| ------------- | ------- |
-| server_id | dm-worker 伪装成一个 mysql slave，即 slave 的 server_id, 需要在 mysql 集群中全局唯一，取值范围 0 - 4294967295 |
-| mysql_host | 上游 MySQL host | 
-| mysql_user | 上游 MySQL 用户名，默认为 root |
-| mysql_password | 上游 MySQL 用户名密码 |
-| mysql_port | 上游 MySQL 端口号, 默认为 3306 |
-| enable_gtid | dm-worker 是否要用 gtid 形式的位置去拉取 binlog，前提是上游 mysql 已经开启 gtid 模式 |
-| flavor | flavor 表示 mysql 的发行版类型，官方版以及 percona、云 mysql 填写 mysql，mariadb 则填写 mariadb，默认为 mysql |
-
 ```ini
 ## DM modules
 [dm_master_servers]
@@ -208,7 +196,7 @@ deploy_dir = /data1/dm
 dm-master ansible_host=172.16.10.71 deploy_dir=/data1/deploy
 ```
 
-#### 其他变量调整
+#### 全局变量解释
 
 | 变量            | 含义                                                        |
 | --------------- | ---------------------------------------------------------- |
@@ -216,6 +204,18 @@ dm-master ansible_host=172.16.10.71 deploy_dir=/data1/deploy
 | dm_version | DM 版本，默认已配置 |
 | grafana_admin_user | Grafana 管理员帐号用户名，默认为 admin |
 | grafana_admin_password | Grafana 管理员帐号密码，默认为 admin，用于 Ansible 导入 Dashboard，如后期通过 grafana web 修改了密码，请更新此变量 |
+
+#### dm-worker 配置参数解释
+
+| 变量 | 变量含义 |
+| ------------- | ------- |
+| server_id | dm-worker 伪装成一个 mysql slave，即 slave 的 server_id, 需要在 mysql 集群中全局唯一，取值范围 0 - 4294967295 |
+| mysql_host | 上游 MySQL host | 
+| mysql_user | 上游 MySQL 用户名，默认为 root |
+| mysql_password | 上游 MySQL 用户名密码 |
+| mysql_port | 上游 MySQL 端口号, 默认为 3306 |
+| enable_gtid | dm-worker 是否要用 gtid 形式的位置去拉取 binlog，前提是上游 mysql 已经开启 gtid 模式 |
+| flavor | flavor 表示 mysql 的发行版类型，官方版以及 percona、云 mysql 填写 mysql，mariadb 则填写 mariadb，默认为 mysql |
 
 ## 部署任务
 
