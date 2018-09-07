@@ -138,9 +138,9 @@ $ ansible-playbook -i hosts.ini create_users.yml -u root -k
 
 执行 `local_prepare.yml` playbook，联网下载 DM 及监控组件安装包到中控机：
 
-    ```
-    ansible-playbook local_prepare.yml
-    ```
+```
+ansible-playbook local_prepare.yml
+```
 
 ## 分配机器资源，编辑 inventory.ini 文件
 
