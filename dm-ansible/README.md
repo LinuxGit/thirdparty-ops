@@ -162,8 +162,8 @@ ansible-playbook local_prepare.yml
 | mysql_user | 上游 MySQL 用户名，默认为 root |
 | mysql_password | 上游 MySQL 用户名密码 |
 | mysql_port | 上游 MySQL 端口号, 默认为 3306 |
-| enable_gtid | |
-| flavor | 默认为 mysql, 可选 |
+| enable_gtid | dm-worker 是否要用 gtid 形式的位置去拉取 binlog，前提是上游 mysql 已经开启 gtid 模式 |
+| flavor | flavor 表示 mysql 的发行版类型，官方版以及 percona、云 mysql 填写 mysql，mariadb 则填写 mariadb，默认为 mysql |
 
 ```ini
 ## DM modules
