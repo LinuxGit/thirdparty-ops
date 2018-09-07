@@ -153,9 +153,9 @@ $ ansible-playbook -i hosts.ini create_users.yml -u root -k
 dm-master ansible_host=172.16.10.71
 
 [dm_worker_servers]
-dm-worker1 ansible_host=172.16.10.72 server_id=101 mysql_host=172.16.10.72 mysql_user=root mysql_password='KYMz623KG+6uspkXMJrU+0BYknT8xVU='
+dm-worker1 ansible_host=172.16.10.72 server_id=101 mysql_host=172.16.10.72 mysql_user=root mysql_password='KYMz623KG+6uspkXMJrU+0BYknT8xVU=' mysql_port=3306
 
-dm-worker2 ansible_host=172.16.10.73 server_id=102 mysql_host=172.16.10.73 mysql_user=root mysql_password='KYMz623KG+6uspkXMJrU+0BYknT8xVU='
+dm-worker2 ansible_host=172.16.10.73 server_id=102 mysql_host=172.16.10.73 mysql_user=root mysql_password='KYMz623KG+6uspkXMJrU+0BYknT8xVU=' mysql_port=3306
 
 ## Monitoring modules
 [prometheus_servers]
