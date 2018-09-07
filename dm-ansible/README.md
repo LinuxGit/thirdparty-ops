@@ -176,6 +176,19 @@ grafana ansible_host=172.16.10.71
 
 [alertmanager_servers]
 alertmanager ansible_host=172.16.10.71
+
+## Global variables
+[all:vars]
+cluster_name = test-cluster
+
+ansible_user = tidb
+
+dm_version = latest
+
+deploy_dir = /data1/dm
+
+grafana_admin_user = "admin"
+grafana_admin_password = "admin"
 ```
 
 ### inventory.ini 变量调整
