@@ -142,12 +142,14 @@ $ ansible-playbook -i hosts.ini create_users.yml -u root -k
 ansible-playbook local_prepare.yml
 ```
 
-## 分配机器资源，编辑 inventory.ini 文件
+## 编辑 inventory.ini 文件, 配置集群拓扑
 
 以 `tidb` 用户登录中控机，`inventory.ini` 文件路径为 `/home/tidb/dm-ansible/inventory.ini`。
 
 > **注：** 请使用内网 IP 来部署集群，如果部署目标机器 SSH 端口非默认 22 端口，需添加 `ansible_port` 变量，如：
 > `dm-worker1 ansible_host=172.16.10.72 ansible_port=5555`
+
+### 样例集群拓扑
 
 | Name | Host IP | Services |
 | ---- | ------- | -------- |
@@ -155,8 +157,10 @@ ansible-playbook local_prepare.yml
 | node2 | 172.16.10.72 | dm-worker1 |
 | node3 | 172.16.10.73 | dm-worker2 |
 
-| dm-worker 变量 | 变量含义 |
-| ---- | ------- |
+### dm-worker 配置参数
+
+| 变量 | 变量含义 |
+| ------------- | ------- |
 | server_id | dm-worker 伪装成一个 mysql slave，即 slave 的 server_id, 需要在 mysql 集群中全局唯一，取值范围 0 - 4294967295 |
 | mysql_host | 上游 MySQL host | 
 | mysql_user | 上游 MySQL 用户名，默认为 root |
