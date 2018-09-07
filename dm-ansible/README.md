@@ -66,6 +66,9 @@ Ansible 是一款自动化运维工具，DM-Ansible 是 PingCAP 基于 Ansible P
 
 ```
 # su - tidb
+```
+
+```
 $ ssh-keygen -t rsa
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/tidb/.ssh/id_rsa):
